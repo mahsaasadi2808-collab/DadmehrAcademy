@@ -1,0 +1,73 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Level Books | Dadmehr Academy</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="resources.css">
+</head>
+<body>
+
+<header class="header">
+  <a href="index.html" class="brand">
+    <img src="image/logo.jpeg" alt="Dadmehr Academy">
+  </a>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="resources.html" class="active">Learning Resources</a>
+    <a href="gallery.html">Gallery</a>
+  </nav>
+</header>
+
+<main class="page-container">
+  <a href="resources.html" class="back-link">← All Levels</a>
+
+  <section class="page-heading">
+    <span class="eyebrow">LEARNING RESOURCES</span>
+    <h1 id="levelTitle">Books</h1>
+    <p id="levelDescription"></p>
+  </section>
+
+  <section class="book-grid" id="bookGrid"></section>
+</main>
+
+<footer class="footer">
+  <p>© 2026 Dadmehr Academy. All Rights Reserved.</p>
+</footer>
+
+<script src="resources.js"></script>
+<script>
+  const params = new URLSearchParams(window.location.search);
+  const levelKey = params.get("level");
+  const level = levelData[levelKey];
+  const grid = document.getElementById("bookGrid");
+
+  if (!level) {
+    document.getElementById("levelTitle").textContent = "Level Not Found";
+  } else {
+    document.title = level.name + " | Dadmehr Academy";
+    document.getElementById("levelTitle").textContent =
+      level.name + " — " + level.collection;
+    document.getElementById("levelDescription").textContent =
+      level.description;
+
+    level.books.forEach(book => {
+      grid.innerHTML += `
+        <a class="book-card" href="book-details.html?id=${book.id}">
+          <div class="book-cover">
+            <img src="${book.cover}" alt="${book.title}">
+          </div>
+          <div class="book-card-info">
+            <h3>${book.title}</h3>
+            <span>View Details →</span>
+          </div>
+        </a>
+      `;
+    });
+  }
+</script>
+
+</body>
+</html>

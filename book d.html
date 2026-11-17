@@ -1,0 +1,87 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Book Details | Dadmehr Academy</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="book.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <a href="index.html" class="logo">
+      <img src="images/logo.jpeg" alt="Dadmehr Academy">
+    </a>
+    <nav class="main-nav">
+      <a href="index.html">Home</a>
+      <a href="book.html" class="active">Books</a>
+    </nav>
+  </header>
+
+  <main class="books-page">
+    <a id="backToCollection" href="book.html" class="back-link">
+      ← Back to Collection
+    </a>
+
+    <section id="bookDetails" class="book-details">
+      <!-- Book information is loaded here -->
+    </section>
+  </main>
+
+  <footer class="books-footer">
+    <p>© 2026 Dadmehr Academy. All Rights Reserved.</p>
+  </footer>
+
+  <script src="books-data.js"></script>
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const bookId = params.get("id");
+    const book = books.find(item => item.id === bookId);
+    const details = document.getElementById("bookDetails");
+
+    if (!book) {
+      details.innerHTML = "<h2>Book Not Found</h2>";
+    } else {
+      document.title = book.title + " | Dadmehr Academy";
+
+      document.getElementById("backToCollection").href =
+        "collection.html?category=" + book.category;
+
+      details.innerHTML = `
+        <div class="detail-cover">
+          <img src="${book.cover}" alt="${book.title}">
+        </div>
+
+        <div class="detail-content">
+          <span class="section-label">DADMEHR ACADEMY BOOK COLLECTION</span>
+          <h1>${book.title}</h1>
+          <p class="book-description">${book.description}</p>
+
+          <div class="book-meta">
+            <p><strong>Collection:</strong> ${book.categoryName}</p>
+            <p><strong>Level:</strong> ${book.level || "Not specified"}</p>
+          </div>
+
+          <div class="book-actions">
+            <a class="book-button primary"
+               href="${book.pdf}"
+               target="_blank"
+               rel="noopener">
+              View PDF
+            </a>
+
+            <a class="book-button secondary"
+               href="${book.pdf}"
+               download>
+              Download PDF
+            </a>
+          </div>
+        </div>
+      `;
+    }
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,67 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Books | Dadmehr Academy</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="book.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <link rel="stylesheet" href="style.css">
+     <link rel="stylesheet" href="book.css">
+    <a href="index.html" class="logo">
+      <img src="image/logo.jpeg" alt="Dadmehr Academy">
+    </a>
+
+    <nav class="main-nav">
+      <a href="index.html">Home</a>
+      <a href="index.html#videos">Videos</a>
+      <a href="index.html#gallery">Gallery</a>
+      <a href="book.html" class="active">Books</a>
+      <a href="book.html" class="feature-card"></a>
+    </nav>
+  </header>
+
+  <main class="books-page">
+    <section class="books-intro">
+      <span class="section-label">DADMEHR ACADEMY</span>
+      <h1>Our Books</h1>
+      <p>Explore our English learning book collections.</p>
+    </section>
+
+    <section class="category-grid" id="categoryGrid">
+      <!-- Categories are loaded from books-data.js -->
+    </section>
+  </main>
+
+  <footer class="books-footer">
+    <p>© 2026 Dadmehr Academy. All Rights Reserved.</p>
+  </footer>
+
+  <script src="books-data.js"></script>
+  <script>
+    const categoryGrid = document.getElementById("categoryGrid");
+
+    categories.forEach(category => {
+      categoryGrid.innerHTML += `
+        <a class="category-card"
+           href="collection.html?category=${category.id}">
+          <div class="category-image">
+            <img src="${category.image}" alt="${category.name}">
+          </div>
+          <div class="category-info">
+            <h2>${category.name}</h2>
+            <p>${category.description}</p>
+            <span class="category-link">Explore Collection →</span>
+          </div>
+        </a>
+      `;
+    });
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,84 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Book Collection | Dadmehr Academy</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="book.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <a href="index.html" class="logo">
+      <img src="images/logo.jpeg" alt="Dadmehr Academy">
+    </a>
+    <nav class="main-nav">
+      <a href="index.html">Home</a>
+      <a href="book.html" class="active">Books</a>
+    </nav>
+  </header>
+
+  <main class="books-page">
+    <a href="book.html" class="back-link">← All Collections</a>
+
+    <section class="books-intro">
+      <span class="section-label">DADMEHR ACADEMY</span>
+      <h1 id="collectionTitle">Collection</h1>
+      <p id="collectionDescription"></p>
+    </section>
+
+    <section class="book-grid" id="bookGrid"></section>
+  </main>
+
+  <footer class="books-footer">
+    <p>© 2026 Dadmehr Academy. All Rights Reserved.</p>
+  </footer>
+
+  <script src="books-data.js"></script>
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const categoryId = params.get("category");
+    const category = categories.find(item => item.id === categoryId);
+
+    if (!category) {
+      document.getElementById("collectionTitle").textContent =
+        "Collection Not Found";
+    } else {
+      document.title = category.name + " | Dadmehr Academy";
+      document.getElementById("collectionTitle").textContent =
+        category.name;
+      document.getElementById("collectionDescription").textContent =
+        category.description;
+
+      const bookGrid = document.getElementById("bookGrid");
+
+      const collectionBooks = books.filter(
+        book => book.category === categoryId
+      );
+
+      if (collectionBooks.length === 0) {
+        bookGrid.innerHTML =
+          '<p class="empty-message">Books will be added soon.</p>';
+      }
+
+      collectionBooks.forEach(book => {
+        bookGrid.innerHTML += `
+          <a class="book-card"
+             href="book.html?id=${book.id}">
+            <div class="book-cover">
+              <img src="${book.cover}" alt="${book.title}">
+            </div>
+            <div class="book-card-info">
+              <h3>${book.title}</h3>
+              <span>View Details →</span>
+            </div>
+          </a>
+        `;
+      });
+    }
+  </script>
+
+</body>
+</html>
